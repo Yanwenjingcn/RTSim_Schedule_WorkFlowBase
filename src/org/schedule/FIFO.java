@@ -144,7 +144,7 @@ public class FIFO {
 					dag.setfinish(current_time);
 					dag.setdone(true);
 					pe_list.get(dag.getpeid()).setfree(true);
-					System.out.println("the task " + dag.getid() +" in DAG "+dag.getdagid()+" : start at "+ dag.getstart() +" finish at "+ dag.getfinish() + " at PE"+ dag.getpeid());
+					//System.out.println("the task " + dag.getid() +" in DAG "+dag.getdagid()+" : start at "+ dag.getstart() +" finish at "+ dag.getfinish() + " at PE"+ dag.getpeid());
 				}
 			}
 			

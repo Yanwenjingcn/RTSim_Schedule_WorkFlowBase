@@ -21,6 +21,13 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.generate.BuildParameters;
 
+/**
+ * 
+* @ClassName: fillbacknew
+* @Description: 学姐版本的原算法，修改后可以适应单任务
+* @author YanWenjing
+* @date 2017-10-21 下午7:48:05
+ */
 public class fillbacknew {
 
 	private static int[][] dagResultMap = null;
@@ -120,10 +127,6 @@ public class fillbacknew {
 	* @throws
 	 */
 	public void runMakespan(String pathXML,String resultPath) throws Throwable {
-		
-		System.out.println("=============================================>");
-		System.out.println("=============================================>");
-		System.out.println("=============================================>");
 		
 		// init dagmap
 		fillbacknew fb = new fillbacknew();
@@ -742,7 +745,13 @@ public class fillbacknew {
 	* @throws
 	 */
 	public static void wholerelax(DAGMap dagmap) {
-		int Criticalnum = CriticalPath(dagmap);
+		int Criticalnum = 0;
+		if (!dagmap.isSingle) {
+			Criticalnum = CriticalPath(dagmap);
+		} else {
+			Criticalnum = 1;
+		}
+		
 		int submit = dagmap.getsubmittime();
 		int deadline = dagmap.getDAGdeadline();
 
@@ -876,7 +885,8 @@ public class fillbacknew {
 					DAG dagtem = new DAG();
 					dagtem = getDAGById(dagmap.getDAGId(),(int) dagmap.taskinlevel.get(i).get(j));
 					//设置s
-					dagtem.setfillbackstarttime(starttime);
+					//if(starttime>dagtem.getfillbackstarttime())
+						dagtem.setfillbackstarttime(starttime);
 					//设置f
 					dagtem.setfillbackfinishtime(dagtem.getfillbackstarttime()+ dagtem.getts());
 				}
@@ -1891,7 +1901,12 @@ public class fillbacknew {
 		} else {//如果本DAG的backfilling操作成功
 			DAGMapList.get(i).setfillbackdone(true);
 			//依据本次的调度结果，松弛当前的任务
-			wholerelax(DAGMapList.get(i));
+			/**
+			 * 松弛与不松弛没什么区别啊！！！！！
+			 */
+//			float flag=(float) Math.random();
+//			if(flag<0.5)
+				wholerelax(DAGMapList.get(i));
 		}
 	}
 
@@ -2721,6 +2736,8 @@ public class fillbacknew {
 			buff[3] = Integer.valueOf(bufferedA[3]).intValue();// deadline
 			int deadline = buff[3];
 			int tasknum = buff[1];
+			if (tasknum == 1)
+				dagmap.setSingle(true);
 			taskTotal=taskTotal+ tasknum;
 			int arrivetime = buff[2];
 

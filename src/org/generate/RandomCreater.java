@@ -86,12 +86,14 @@ public class RandomCreater {
 			return random(1, maxlength);
 	}
 	
+	
+	
 	/**
 	 * 
 	* @Title: randomDagSize 
 	* @Description: 依据 平均DAG任务数 随机生成某DAG图的任务数   
 	* 				范围【0.5*平均DAG任务数，1.5*平均DAG任务数】
-	* @return int    
+	* @return int  返回这个dag该有的任务数目  
 	* @throws
 	 */
 	public int randomDagSize(int dagAverageSize){
@@ -101,12 +103,45 @@ public class RandomCreater {
 	
 	/**
 	 * 
+	* @Title: randomDagSizeWithSingle
+	* @Description: 加入单独节点的随机DAG大小
+	* @param @param dagAverageSize
+	* @param @return
+	* @return int
+	* @throws
+	 */
+	public int randomDagSizeWithSingle(int dagAverageSize){
+		/**
+		 * 
+		 */
+		float singleFlag=randomFloat(0, 1);
+		if(singleFlag<=BuildParameters.getSingleDAGPercent())
+			return 1;
+		/**
+		 * 
+		 */
+		return random((int)(dagAverageSize*0.5),(int)(dagAverageSize*1.5));
+		
+	}
+	
+	/**
+	 * 
 	* @Title: randomLevelNum 
 	* @Description: 依据串行度生成整个DAG图的层数   
-	* @return int    
+	* @return int    返回这个dag该有多少层
 	* @throws
 	 */
 	public int randomLevelNum(int dagSize,int levelFlag){
+		/**
+		 * 加入单个的随机层次
+		 */
+		if(dagSize==1){
+			return 1;
+		}
+		/**
+		 * 
+		 */
+			
 		int sqrt = (int)Math.sqrt(dagSize-2);
 		if(levelFlag == 1)
 			return random(1, sqrt);
@@ -118,18 +153,20 @@ public class RandomCreater {
 			return sqrt;		
 	}
 	
+	
 	/**
 	 * 
 	* @Title: randomLevelSizes 
 	* @Description: 设置DAG图的第二层至倒数第二层中每一层的任务数目，随机设置   
+	* 				如果就是单个任务，则直接不会进入循环体
 	* @return void    
 	* @throws
 	 */
-	
 	public void randomLevelSizes(int[] dagLevel,int nodeNumber){
-		//先给每层的任务数目都初始化为1
+		//先给每层的任务数目都初始化为1,每层都是至少一个任务
 		for(int j = 0;j < dagLevel.length;j++)
 			 dagLevel[j] = 1;
+		
 		int i = nodeNumber - dagLevel.length;
 		
 		//随机为每一层增加任务数
@@ -147,15 +184,27 @@ public class RandomCreater {
 			 if(i == 0)
 				 break;
 		 }
+		 
 	}
 	
+	
 	/**
-	 * @return 产生[min,max]之间的随机数
+	 * 
+	* @Title: random
+	* @Description: 产生[min,max]之间的随机数
+	* @param @param min
+	* @param @param max
+	* @param @return
+	* @return int
+	* @throws
 	 */
-	public int random(int min,int max){
+	public static int random(int min,int max){
 		return (int)(min + Math.random()*(max-min+1));
 	}
 	
+	public float randomFloat(int min,int max){
+		return (float) (Math.random());
+	}
 
 }
 

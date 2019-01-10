@@ -3,7 +3,7 @@ package org.schedule;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DAGMap { //一个工作流
+public class DAGMap { //一个业务的总集合
 
 	public boolean fillbackpass = false;
 	
@@ -26,7 +26,29 @@ public class DAGMap { //一个工作流
 	public ArrayList<DAG> orderbystarttime;
 	
 	public HashMap<Integer,ArrayList> taskinlevel;
+
+	public boolean isSingle=false;
 	
+	public boolean isMerge=false;
+	
+	
+	
+	public boolean isMerge() {
+		return isMerge;
+	}
+
+	public void setMerge(boolean isMerge) {
+		this.isMerge = isMerge;
+	}
+
+	public boolean getIsSingle() {
+		return isSingle;
+	}
+
+	public void setSingle(boolean isSingle) {
+		this.isSingle = isSingle;
+	}
+
 	public DAGMap(){
 		TaskList = new ArrayList<DAG>();
 		orderbystarttime = new ArrayList<DAG>();
@@ -79,10 +101,16 @@ public class DAGMap { //一个工作流
 		return orderbystarttime;
 	}
 	
-	public void setdepandmap(HashMap<Integer,Integer> map){
-		this.DAGDependMap = map;
-	}
+
 	
+	public HashMap<Integer, Integer> getDAGDependMap() {
+		return DAGDependMap;
+	}
+
+	public void setdepandmap(HashMap<Integer, Integer> dAGDependMap) {
+		DAGDependMap = dAGDependMap;
+	}
+
 	public void setdependvalue(HashMap<String,Double> value){
 		this.DAGDependValueMap = value;
 	}

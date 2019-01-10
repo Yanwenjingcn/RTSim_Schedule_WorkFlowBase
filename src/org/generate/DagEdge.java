@@ -1,5 +1,12 @@
 package org.generate;
 
+/**
+ * 
+* @ClassName: DagEdge
+* @Description: DAG依赖边的对象
+* @author YanWenjing
+* @date 2017-10-20 下午12:52:52
+ */
 public class DagEdge {
 	public TaskNode head;
 	public TaskNode tail;
