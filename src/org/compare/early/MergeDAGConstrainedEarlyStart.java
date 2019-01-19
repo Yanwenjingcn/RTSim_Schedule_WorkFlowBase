@@ -3531,21 +3531,21 @@ public class MergeDAGConstrainedEarlyStart {
 		 * 
 		 * 
 		 */
-		FileWriter writer = new FileWriter("G:\\initTaskList.txt", true);	
-		for(DAG mdag:newTaskList){
-			StringBuffer spre=new StringBuffer();
-			for(Integer pre:mdag.getpre()){
-				spre.append(pre).append(";");
-			}
-			StringBuffer schi=new StringBuffer();
-			for(Integer chi:mdag.getsuc()){
-				schi.append(chi).append(";");
-			}
-			writer.write(""+mdag.getdagid()+":"+mdag.getid()+"\t原始信息："+mdag.getOriDagId()+":"+mdag.getid()+"\t父节点有："+spre.toString()+"\t子节点有："+schi.toString()+"\n");
-		}
-		if (writer != null) {
-			writer.close();
-		}
+//		FileWriter writer = new FileWriter("G:\\initTaskList.txt", true);	
+//		for(DAG mdag:newTaskList){
+//			StringBuffer spre=new StringBuffer();
+//			for(Integer pre:mdag.getpre()){
+//				spre.append(pre).append(";");
+//			}
+//			StringBuffer schi=new StringBuffer();
+//			for(Integer chi:mdag.getsuc()){
+//				schi.append(chi).append(";");
+//			}
+//			writer.write(""+mdag.getdagid()+":"+mdag.getid()+"\t原始信息："+mdag.getOriDagId()+":"+mdag.getid()+"\t父节点有："+spre.toString()+"\t子节点有："+schi.toString()+"\n");
+//		}
+//		if (writer != null) {
+//			writer.close();
+//		}
 	}
 
 	/**

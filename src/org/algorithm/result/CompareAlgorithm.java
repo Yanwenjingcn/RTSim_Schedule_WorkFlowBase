@@ -54,7 +54,7 @@ public class CompareAlgorithm {
 		// deadlineµÄ±¶ÊýÖµ £¨1.1£¬1.3£¬1.6£¬2.0£©
 		// String deadLineTimes = String.valueOf(BuildParameters.deadLineTimes);
 
-		double[] deadLineTimes = { 1.2,1.5,1.8};
+		double[] deadLineTimes = { 1.1,1.2,1.3};
 
 		for (int i = 0; i < deadLineTimes.length; i++) {
 			BuildParameters.setDeadLineTimes(deadLineTimes[i]);
@@ -65,7 +65,7 @@ public class CompareAlgorithm {
 
 			runAlgorithm(basePathXML, resultPath);
 
-			BuildParameters.setDeadLineTimes(1.5);
+			BuildParameters.setDeadLineTimes(1.2);
 
 		}
 	}
@@ -150,14 +150,14 @@ public class CompareAlgorithm {
 			String pathXML = basePathXML;
 			pathXML = basePathXML + i + "\\";
 			
-//			Makespan ms = new Makespan();
-//			ms.runMakespan_xml(pathXML, resultPath);
-//			
-//			MergeDAGConstrainedEarlyStart mergeDAGConstrainedEarlyStart= new MergeDAGConstrainedEarlyStart();
-//			mergeDAGConstrainedEarlyStart.runMakespan(pathXML, resultPath);
+			Makespan ms = new Makespan();
+			ms.runMakespan_xml(pathXML, resultPath);
 			
-			Fillback fillback=new Fillback();
-			fillback.runMakespan(pathXML, resultPath);
+			MergeDAGConstrainedEarlyStart mergeDAGConstrainedEarlyStart= new MergeDAGConstrainedEarlyStart();
+			mergeDAGConstrainedEarlyStart.runMakespan(pathXML, resultPath);
+			
+//			Fillback fillback=new Fillback();
+//			fillback.runMakespan(pathXML, resultPath);
 
 		}
 

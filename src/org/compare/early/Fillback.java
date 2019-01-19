@@ -65,7 +65,7 @@ public class Fillback {
 	public static String[][] rateResult = new String[1][4];
 
 	private static int islastnum = 0;
-	private static double deadLineTimes = 1.3;// deadline的倍数值 （1.1，1.3，1.6，2.0）
+	private static double deadLineTimes = 1.5;// deadline的倍数值 （1.1，1.3，1.6，2.0）
 	private static int pe_number = 8;
 
 	public static String[][] rate = new String[5][2];
@@ -75,7 +75,7 @@ public class Fillback {
 	public static int timeWindow;
 	public static int T = 1;
 
-	public static int fillbacktasknum = 50;
+	public static int fillbacktasknum = 10;
 	public static int trySlid=0;
 	public static int[][] message;
 	public static int dagnummax = 10000;
@@ -627,8 +627,7 @@ public class Fillback {
 	 */
 	public static int putsameleveltogether(DAGMap dagmap,ArrayList<DAG> DAGTaskList, int deadline) {
 		int levelnumber = DAGTaskList.get(DAGTaskList.size() - 1).getnewlevel();
-		int finishtime = DAGTaskList.get(DAGTaskList.size() - 1)
-				.getfillbackfinishtime();
+		int finishtime = DAGTaskList.get(DAGTaskList.size() - 1).getfillbackfinishtime();
 		int totalrelax = deadline - finishtime;
 		for (int j = 1; j <= levelnumber; j++) {
 			ArrayList<Integer> samelevel = new ArrayList<Integer>();
@@ -696,6 +695,7 @@ public class Fillback {
 					}
 				}
 				Iterator<Integer> it = DAGTaskList.get(i).getpre().iterator();
+				//与父任务的层级相比较
 				while (it.hasNext()) {
 					int pretempid = it.next();
 					int leveltemp = DAGTaskList.get(pretempid).getnewlevel() + 1;
@@ -917,7 +917,6 @@ public class Fillback {
 						if (finishdeadline < dagtem.getfillbackfinishtime())
 							finishdeadline = dagtem.getfillbackfinishtime();
 					}
-
 				}
 
 				//更新本层所有任务的fd为在关键路径上的任务的fd
@@ -928,8 +927,7 @@ public class Fillback {
 
 					dagtem.setslidefinishdeadline(finishdeadline);
 					dagtem.setslidedeadline(finishdeadline - dagtem.getts());
-					dagtem.setslidelength(dagtem.getslidedeadline()
-							- dagtem.getfillbackstarttime());
+					dagtem.setslidelength(dagtem.getslidedeadline()- dagtem.getfillbackstarttime());
 				}
 
 			}
